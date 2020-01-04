@@ -2,11 +2,18 @@
 <html lang="en">
 
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nuclear Reactor Simulator</title>
-    {% load static %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'icon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'icon/site.webmanifest' %}">
+
+    <title>Nuclear Reactor Sim</title>
+    
     
     {% csrf_token %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -45,10 +52,10 @@
             <div>
             <form action="" method="post" class="form-group col">
                 {% csrf_token %}
-                <div class='col-6'>
+                <div class='col-6' style="margin-bottom: 2px;">
                     <input class="form-control" id="id_x_size" name="x_size" required="" type="text" placeholder="Width" autocomplete="off"/>
                 </div>
-                <div class='col-6'>
+                <div class='col-6' style="margin-bottom: 2px;">
                     <input class="form-control" id="id_y_size" name="y_size" required="" type="text" placeholder="Height" autocomplete="off"/>
                 </div>
                 <div class='col-6'>
@@ -60,9 +67,6 @@
         </div>
 
     </div>
-
-
-    
 
     <div id='imageContainer'>{{ img }}</div>
     <!-- <script src="{% static 'diffusion/jquery-3.4.1.min.js' %}"></script> -->

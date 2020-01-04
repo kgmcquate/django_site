@@ -42,9 +42,24 @@ def grab_geo(request):
     test = request.POST.get("data", "")
     # print(type(test))
     generate_mesh(test, ts)
-    generate_mil(ts)
+    keff = generate_mil(ts)
     generate_plot(ts)
     # os.remove('static/'+ts+'_fast.png')
-    return render(request, 'build_a_reactor/image.html', {'fast_plot_path': "plots/"+ts+"_fast.png", 
-                                                            'thermal_plot_path': "plots/"+ts+"_thermal.png"})
+
+    keff = float(keff)
+    if keff < 0.99:
+        msg = "Reactor is Subcritical: k = "+str(keff)
+    elif keff > 1.01:
+        msg = "Reactor is Supercritical: k = "+str(keff)
+    elif (keff > 1.001) or (keff < 0.999):
+        msg = "Reactor is Approximately Critical: k = "+str(keff)
+    elif (keff > 1.0002) or (keff < 0.9998):
+        msg = "Reactor is Nearly Critical: k = "+str(keff)
+    else:
+        msg = "Congratulations, Reactor is Critical: k = "+str(keff)
+    
+
+    return render(request, 'build_a_reactor/plots.html', {'fast_plot_path': "plots/"+ts+"_fast.png", 
+                                                            'thermal_plot_path': "plots/"+ts+"_thermal.png",
+                                                            'k_msg': msg})
 

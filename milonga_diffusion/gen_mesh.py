@@ -5,6 +5,7 @@ import numpy as np
 import pandas
 import math
 import json
+import re
 
 def generate_mesh(cells_string, post_timestamp):
     # print(cells_string)
@@ -159,20 +160,25 @@ def generate_mil(ts):
     t_string = t_string.replace('replace_this', ts)
     with open(ts+'_diffusion.mil', 'w+') as f:
         f.write(t_string)
-    os.system('milonga ' + ts +'_diffusion.mil')
+    os.system('milonga ' + ts +'_diffusion.mil > '+ts+'.keff')
+    with open(ts+'.keff', 'r') as f:
+        keff = re.findall("k:\t(.*)", f.read())[0]
+    
     os.remove(ts+'_diffusion.mil')
     os.remove(ts+'.msh')
-    # print('hi')
+
+    return keff
 
 def generate_plot(ts):
     with open(ts+'_diffusion.gp', 'w+') as f2:
         f2.write('''
+        load "/home/kevin/VSCodeProjects/django_projects/build_a_reactor/milonga_diffusion/gnuplot-palettes/gnbu.pal"
         set term png
         set output "milonga_diffusion/static/plots/'''+ts+'''_fast.png"
         set view map
         set size ratio -1
         set title "Fast Neutron Flux"
-        set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb"#5f5f5f" behind
+        set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb"#FFFFFF" behind
         set pm3d interpolate 8,8
         set dgrid3d
         unset border
@@ -187,7 +193,7 @@ def generate_plot(ts):
         set view map
         set size ratio -1
         set title "Thermal Neutron Flux"
-        set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb"#5f5f5f" behind
+        set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb"#FFFFFF" behind
         set dgrid3d
         unset border
         set lmargin at screen 0.0;
@@ -197,9 +203,6 @@ def generate_plot(ts):
         splot "''' + ts + '''.dat" using 1:2:4 with pm3d notitle'''
         )
 
-
-
-        # '''\nset title "thermal flux"\nset term png\nset output "'''+ts+'''_thermal.png"\nplot "''' + ts + '''.dat" using 1:2:4 with imageset pm3d at b map\n''')
     os.system('gnuplot '+ts+'_diffusion.gp')
     os.remove(ts+'_diffusion.gp')
     os.remove(ts+'.dat')

@@ -11,14 +11,15 @@ MILONGA_PROBLEM FORMULATION diffusion SCHEME volumes DIMENSIONS 2 GROUPS 2
 MATERIAL fuel   SigmaT_1    0.650917       SigmaT_2    2.13800      \
                 SigmaS_1.1  0.             SigmaS_1.2 0.0342008     \
                 SigmaS_2.1  0              SigmaS_2.2 2.06880       \
-                nuSigmaF_1  1.004*0.61475  nuSigmaF_2  2.5*0.045704
+                nuSigmaF_1  1.004*0.61475  nuSigmaF_2  2.5*0.045704 \
 
 MATERIAL air    SigmaT_1 0.1  SigmaT_2 0.05
 
 
 MATERIAL water  SigmaT_1    1.331518007    SigmaT_2    4.37350       \
                 SigmaS_1.1  1.226381244    SigmaS_1.2  0.1046395340  \
-                SigmaS_2.1  0              SigmaS_2.2  4.35470
+                SigmaS_2.1  0              SigmaS_2.2  4.35470 \
+
 
 #MATERIAL source_abs    S 50 SigmaT 50 SigmaS 0
 MATERIAL poison      S 0  SigmaT_1 5  SigmaT_2 5
@@ -39,7 +40,7 @@ MILONGA_SOLVER EPS_TYPE krylovschur
 
 # set the power setpoint equal to the volume of the core
 # (and set eSigmaF_2 = nuSigmaF_2 as above)
-#power = 17700
+#power = 1
 
 # finally ask milonga to solve the eigenvalue problem
 MILONGA_STEP
@@ -49,15 +50,10 @@ VAR phi_max x_max y_max
 #MESH_FIND_MAX FUNCTION phi2 MAX phi_max X_MAX x_max Y_MAX y_max
 
 # write a row of a gfm table
-PRINT SEP " | " {
- %g    unknowns
- %.5f keff
- %.2f  time_cpu_total
- %.1f  memory_usage_global/1e6
-}
+PRINT "k:" %.5f keff
 
 # give some information in a markdown-formatted text file
-#MILONGA_DEBUG FILE_PATH squares.txt
+#MILONGA_DEBUG FILE_PATH replace_this.txt
 
 # gmsh & vtk postprocessing (in background)
 #MESH_POST FILE_PATH squares_post.msh phi1 phi2
@@ -67,6 +63,7 @@ PRINT SEP " | " {
 
 # and gnuplot with the power
 PRINT_FUNCTION FILE_PATH replace_this.dat phi1 phi2
+
 
 # dump the matrices in sng format, convert them to png with
 # 
