@@ -4,7 +4,7 @@ body {
 
 #buttonContainer {
     position: relative;
-    top: 40px;
+    
     margin-right: auto;
     /* left: 1%; */
     /* left: 10%; */
@@ -27,7 +27,7 @@ body {
 
 #container {
     position: relative;
-    margin-left: auto;
+    margin-left: 25%;
     /* margin-right: 60px; */
     background: rgb(10, 30, 50)
 }
@@ -37,6 +37,7 @@ body {
     top: 50%;
     left: 60px
 }
+
 
 #imageContainer {
     position: relative;

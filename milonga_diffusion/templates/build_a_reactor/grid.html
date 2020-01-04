@@ -22,7 +22,10 @@
     </div>
 
     <div style="text-align: center">
-            <div id='container' style='height: calc({{ maxY }}*40px); width: calc({{ maxX }}*40px)'>
+        
+        <div style="display: flex; margin: auto">
+
+            <div id='container' style='margin-left: calc(25% - {{maxX}}% / 2); height: calc({{ maxY }}*40px); width: calc({{ maxX }}*40px)'>
                 {% for x in X %}
                 {% for y in Y %}
                 <div class='cell' id='{{ x }},{{ y }}' style="top: calc(({{ maxY }} - {{y}} - 1)*40px); left: calc({{x}}*40px); height: 40px; width: 40px;"></div>
@@ -30,7 +33,7 @@
                 {% endfor %}
             </div>
 
-            <div id='buttonContainer'>
+            <div id='buttonContainer' style="top: calc({{ maxY }}*2px);"">
                 <button type="button" id='fuel' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Fuel">Fuel</button>
                 <button type="button" id='water' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Water">Water</button>
                 <button type="button" id='poison' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Neutron Poison">Poison</button>
@@ -39,23 +42,26 @@
 
                 <button type="button" id='solve' class="btn btn-success" data-toggle="tooltip" title="Send to milonga">Solve</button>
             </div>
+            <div>
+            <form action="" method="post" class="form-group col">
+                {% csrf_token %}
+                <div class='col-6'>
+                    <input class="form-control" id="id_x_size" name="x_size" required="" type="text" placeholder="Width" autocomplete="off"/>
+                </div>
+                <div class='col-6'>
+                    <input class="form-control" id="id_y_size" name="y_size" required="" type="text" placeholder="Height" autocomplete="off"/>
+                </div>
+                <div class='col-6'>
+                    <input class='btn btn-primary mb-2' type="submit" value="New Grid" />
+                </div>
+            </form>
+            </div>
+
+        </div>
+
     </div>
 
-            <div id='formContainer'>
-                
-                <form action="" method="post" class="form-group col">
-                    {% csrf_token %}
-                    <div class='col-5'>
-                        <input class="form-control" id="id_x_size" name="x_size" required="" type="text" placeholder="Width" autocomplete="off"/>
-                    </div>
-                    <div class='col-5'>
-                        <input class="form-control" id="id_y_size" name="y_size" required="" type="text" placeholder="Height" autocomplete="off"/>
-                    </div>
-                    <div class='col-5'>
-                        <input class='btn btn-primary mb-2' type="submit" value="New Grid" />
-                    </div>
-                </form>
-            </div>
+
     
 
     <div id='imageContainer'>{{ img }}</div>
