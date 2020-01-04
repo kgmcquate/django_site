@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nuclear Reactor Simulator</title>
+    {% load static %}
+    
+    {% csrf_token %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'build_a_reactor/styles.css' %}">
+</head>
+
+<body >
+    {% load crispy_forms_tags %}
+
+    <div class="jumbotron text-left" >
+        <h1 style="font-size:36px">Nuclear Reactor Simulator</h1>
+        <p>diffusion theory neutronics for casual use<br>powered by <a href="https://www.seamplex.com/milonga/">milonga, a free nuclear reactor core analysis code</a><p>
+    </div>
+
+    <div style="text-align: center">
+            <div id='container' style='height: calc({{ maxY }}*40px); width: calc({{ maxX }}*40px)'>
+                {% for x in X %}
+                {% for y in Y %}
+                <div class='cell' id='{{ x }},{{ y }}' style="top: calc(({{ maxY }} - {{y}} - 1)*40px); left: calc({{x}}*40px); height: 40px; width: 40px;"></div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+
+            <div id='buttonContainer'>
+                <button type="button" id='fuel' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Fuel">Fuel</button>
+                <button type="button" id='water' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Water">Water</button>
+                <button type="button" id='poison' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Neutron Poison">Poison</button>
+                <button type="button" id='air' class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Air">Air</button>
+                <button type="button" id='clearGrid' class='btn btn-primary' data-toggle="tooltip" title="Fill All with Fuel">Clear Grid</button>
+
+                <button type="button" id='solve' class="btn btn-success" data-toggle="tooltip" title="Send to milonga">Solve</button>
+            </div>
+    </div>
+
+            <div id='formContainer'>
+                
+                <form action="" method="post" class="form-group col">
+                    {% csrf_token %}
+                    <div class='col-5'>
+                        <input class="form-control" id="id_x_size" name="x_size" required="" type="text" placeholder="Width" autocomplete="off"/>
+                    </div>
+                    <div class='col-5'>
+                        <input class="form-control" id="id_y_size" name="y_size" required="" type="text" placeholder="Height" autocomplete="off"/>
+                    </div>
+                    <div class='col-5'>
+                        <input class='btn btn-primary mb-2' type="submit" value="New Grid" />
+                    </div>
+                </form>
+            </div>
+    
+
+    <div id='imageContainer'>{{ img }}</div>
+    <!-- <script src="{% static 'diffusion/jquery-3.4.1.min.js' %}"></script> -->
+    <script src="{% static 'build_a_reactor/grid.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

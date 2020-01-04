@@ -1,0 +1,9 @@
+{% extends "diffusion/base.html" %}
+{% block content %}
+<p>Input your grid size</p>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}
