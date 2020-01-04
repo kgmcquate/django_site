@@ -37,7 +37,7 @@ def build_a_reactor(request):
         
 
 def grab_geo(request):
-    ts = 'temp' + str(datetime.datetime.now().timestamp()).replace(".","_")
+    ts = 'temp_' + str(datetime.datetime.now().timestamp()).replace(".","_")
     # response_data = {}
     test = request.POST.get("data", "")
     # print(type(test))

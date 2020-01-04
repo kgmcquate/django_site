@@ -173,7 +173,7 @@ def generate_mil(ts):
     
     os.remove(ts+'_diffusion.mil')
     os.remove(ts+'.msh')
-    # os.remove(ts+'.keff')
+    os.remove(ts+'.keff')
 
     return keff
 
