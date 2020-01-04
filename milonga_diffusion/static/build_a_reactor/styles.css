@@ -27,7 +27,7 @@ body {
 
 #container {
     position: relative;
-    margin-left: 25%;
+    /* margin-left: 25%; */
     /* margin-right: 60px; */
     background: rgb(10, 30, 50)
 }
@@ -54,4 +54,16 @@ body {
     /* margin: 50px 50% 0 50%; */
     height: 40px;
     width: 40px;
+}
+
+#ajaxProgress {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    /* margin-left: 40%; */
+}
+
+#formdiv {
+    margin: auto;
+    /* margin-left: 20px */
 }

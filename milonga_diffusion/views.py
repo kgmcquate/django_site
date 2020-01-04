@@ -37,17 +37,21 @@ def build_a_reactor(request):
         
 
 def grab_geo(request):
-    ts = str(datetime.datetime.now().timestamp()).replace(".","_")
+    ts = 'temp' + str(datetime.datetime.now().timestamp()).replace(".","_")
     # response_data = {}
     test = request.POST.get("data", "")
     # print(type(test))
     generate_mesh(test, ts)
     keff = generate_mil(ts)
-    generate_plot(ts)
+
+    if keff > 0:
+        generate_plot(ts)
     # os.remove('static/'+ts+'_fast.png')
 
     keff = float(keff)
-    if keff < 0.99:
+    if keff == 0:
+        msg = 'Can\'t Solve'
+    elif keff < 0.99:
         msg = "Reactor is Subcritical: k = "+str(keff)
     elif keff > 1.01:
         msg = "Reactor is Supercritical: k = "+str(keff)

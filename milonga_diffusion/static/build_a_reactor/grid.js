@@ -80,10 +80,11 @@ function getGeo() {
     }
 
     sendGeo(postObj)
-    // getImg(ts)
 }
 
+
 function sendGeo(postObj) {
+    $('#ajaxProgress').show();
     $.ajax({
         type: 'POST',
         url: 'send_geo/',
@@ -96,15 +97,9 @@ function sendGeo(postObj) {
             // complete: callback
         },
         success: function(imgpage){
-
             document.querySelector('#imageContainer').innerHTML = imgpage
+            $('#ajaxProgress').hide();
         }
-            // console.log(img)
-            // $('#imageContainer').html(image)
-            // $('#imageContainer').html('<p>hi<p/>')
-            // $('#image').html('<img src="data:image/png;base64,' + img + '" />')
-        
-
 
     })
 }

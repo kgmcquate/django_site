@@ -153,19 +153,27 @@ def generate_mesh(cells_string, post_timestamp):
     gmsh.finalize()
 
 
-
 def generate_mil(ts):
     with open(os.getcwd() + '/milonga_diffusion/diffusion_template.mil', 'r') as template:
         t_string = template.read()
     t_string = t_string.replace('replace_this', ts)
+
     with open(ts+'_diffusion.mil', 'w+') as f:
         f.write(t_string)
+        # print('wrote mil')
+
     os.system('milonga ' + ts +'_diffusion.mil > '+ts+'.keff')
+
     with open(ts+'.keff', 'r') as f:
-        keff = re.findall("k:\t(.*)", f.read())[0]
+        try:
+            keff = float(re.findall("k:\t(\d\.\d*)", f.read())[0])
+        except:
+            keff = 0
+            print('k is zero')
     
     os.remove(ts+'_diffusion.mil')
     os.remove(ts+'.msh')
+    # os.remove(ts+'.keff')
 
     return keff
 
