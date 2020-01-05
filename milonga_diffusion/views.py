@@ -5,7 +5,7 @@ import json
 from .gen_mesh import generate_mesh, generate_mil, generate_plot
 import datetime, os
 
-def build_a_reactor(request):
+def reactor_sim(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -25,19 +25,19 @@ def build_a_reactor(request):
             elif Y < 5:
                 Y = 5
             
-            return render(request, 'build_a_reactor/grid.html', {'form': form, 'X': range(X), 'Y': range(Y), 'maxX': X, 'maxY': Y})
+            return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(X), 'Y': range(Y), 'maxX': X, 'maxY': Y})
         # else:
         #     # warning = 'Dimensions must be between 5 and 25'
-        #     return render(request, 'build_a_reactor/grid.html', {'form': form, 'X': range(10), 'Y': range(10), 'maxX': 10, 'maxY': 10})
+        #     return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(10), 'Y': range(10), 'maxX': 10, 'maxY': 10})
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = AddForm()
-        return render(request, 'build_a_reactor/grid.html', {'form': form, 'X': range(10),  'Y': range(10), 'maxX': 10, 'maxY': 10})
+        return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(10),  'Y': range(10), 'maxX': 10, 'maxY': 10})
         
 
 def grab_geo(request):
-    ts = 'temp_' + str(datetime.datetime.now().timestamp()).replace(".","_")
+    ts = 'temp_' + str(datetime.datetime.now().strftime("%H%M%S%s"))
     # response_data = {}
     test = request.POST.get("data", "")
     # print(type(test))
@@ -48,6 +48,7 @@ def grab_geo(request):
         generate_plot(ts)
     # os.remove('static/'+ts+'_fast.png')
 
+    # print(keff)
     keff = float(keff)
     if keff == 0:
         msg = 'Can\'t Solve'
@@ -62,8 +63,16 @@ def grab_geo(request):
     else:
         msg = "Congratulations, Reactor is Critical: k = "+str(keff)
     
+    root_dir = "/home/kevin/reactor_sim/milonga_diffusion/"
+    plots_dir = "/plots/"
+    html_path = root_dir + 'templates/reactor_sim/plots.html'
+    fast_path = plots_dir+ts+"_fast.png"
+    thermal_path = plots_dir+ts+"_thermal.png"
 
-    return render(request, 'build_a_reactor/plots.html', {'fast_plot_path': "plots/"+ts+"_fast.png", 
-                                                            'thermal_plot_path': "plots/"+ts+"_thermal.png",
-                                                            'k_msg': msg})
+    # for path in [root_dir, plots_dir, html_path, fast_path, thermal_path]:
+    #     if os.path.exists(path):
+    #         print(path+'  exists') 
+    # print(msg)
+
+    return render(request, html_path, {'fast_plot_path': fast_path, 'thermal_plot_path': thermal_path, 'k_msg': msg})
 

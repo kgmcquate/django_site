@@ -6,10 +6,14 @@ import pandas
 import math
 import json
 import re
+import subprocess
+
+root_dir = "/home/kevin/reactor_sim/milonga_diffusion/"
 
 def generate_mesh(cells_string, post_timestamp):
     # print(cells_string)
-
+    # raise Exception(str(cells_string))
+    # print(cells_string)
     cells = json.loads(cells_string)
     gmsh.initialize(sys.argv)
     gmsh.model.add(post_timestamp)
@@ -148,41 +152,53 @@ def generate_mesh(cells_string, post_timestamp):
 
     gmsh.model.mesh.generate(2) # 2d
 
-    gmsh.write(post_timestamp + ".msh")
+    gmsh.write(root_dir + 'static/' + post_timestamp + ".msh")
 
     gmsh.finalize()
 
 
 def generate_mil(ts):
-    with open(os.getcwd() + '/milonga_diffusion/diffusion_template.mil', 'r') as template:
+    
+    with open(root_dir + 'diffusion_template.mil', 'r') as template:
         t_string = template.read()
     t_string = t_string.replace('replace_this', ts)
 
-    with open(ts+'_diffusion.mil', 'w+') as f:
+    with open(root_dir + 'static/' + ts+'_diffusion.mil', 'w+') as f:
         f.write(t_string)
-        # print('wrote mil')
+    #     # print('wrote mil')
+    # with open('/var/www/'+ts+'_diffusion.mil', 'w') as f:
+    #     f.write(t_string)
 
-    os.system('milonga ' + ts +'_diffusion.mil > '+ts+'.keff')
+    # subprocess.call(['milonga', root_dir + 'static/' + ts +'_diffusion.mil > '+root_dir + 'static/' + ts+'.keff')
+    out = subprocess.check_output(['milonga', root_dir + 'static/' + ts +'_diffusion.mil'])
 
-    with open(ts+'.keff', 'r') as f:
-        try:
-            keff = float(re.findall("k:\t(\d\.\d*)", f.read())[0])
-        except:
-            keff = 0
-            print('k is zero')
+    # with open(root_dir + 'static/' +ts+'.keff', 'r') as f:
+    #     try:
+    #         keff = float(re.findall("k:\t(\d\.\d*)", f.read())[0])
+    #     except:
+    #         keff = 0
+    #         print('k is zero')
+
+    # print(out.decode())
+
+    try:
+        keff = float(re.findall("k:\t(\d\.\d*)", out.decode())[0])
+    except:
+        keff = 0
+        print('k is zero')
     
-    os.remove(ts+'_diffusion.mil')
-    os.remove(ts+'.msh')
-    os.remove(ts+'.keff')
+    os.remove(root_dir + 'static/' +ts+'_diffusion.mil')
+    os.remove(root_dir + 'static/' +ts+'.msh')
+    # os.remove(root_dir + 'static/' +ts+'.keff')
 
     return keff
 
 def generate_plot(ts):
-    with open(ts+'_diffusion.gp', 'w+') as f2:
+    with open(root_dir + 'static/' +ts+'_diffusion.gp', 'w+') as f2:
         f2.write('''
         load "/home/kevin/reactor_sim/milonga_diffusion/gnuplot-palettes/gnbu.pal"
         set term png
-        set output "milonga_diffusion/static/plots/'''+ts+'''_fast.png"
+        set output "'''+root_dir + '''static/plots/'''+ts+'''_fast.png"
         set view map
         set size ratio -1
         set title "Fast Neutron Flux"
@@ -194,10 +210,10 @@ def generate_plot(ts):
         set rmargin at screen 0.9;
         set bmargin at screen 0.1;
         set tmargin at screen 0.87;
-        splot "''' + ts + '''.dat" using 1:2:3 with pm3d notitle
+        splot "''' + root_dir + 'static/' + ts + '''.dat" using 1:2:3 with pm3d notitle
 
         set term png
-        set output "milonga_diffusion/static/plots/'''+ts+'''_thermal.png"
+        set output "'''+root_dir + '''static/plots/'''+ts+'''_thermal.png"
         set view map
         set size ratio -1
         set title "Thermal Neutron Flux"
@@ -208,9 +224,10 @@ def generate_plot(ts):
         set rmargin at screen 1;
         set bmargin at screen 0.1;
         set tmargin at screen 0.87;
-        splot "''' + ts + '''.dat" using 1:2:4 with pm3d notitle'''
+        splot "''' + root_dir + 'static/' + ts + '''.dat" using 1:2:4 with pm3d notitle'''
         )
 
-    os.system('gnuplot '+ts+'_diffusion.gp')
-    os.remove(ts+'_diffusion.gp')
-    os.remove(ts+'.dat')
+    os.system('chmod 775 '+root_dir + 'static/' +ts+'_diffusion.gp')
+    os.system('gnuplot '+root_dir + 'static/' +ts+'_diffusion.gp')
+    os.remove(root_dir + 'static/' +ts+'_diffusion.gp')
+    os.remove(root_dir + 'static/' +ts+'.dat')

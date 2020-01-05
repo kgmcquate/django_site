@@ -74,7 +74,7 @@ function getGeo() {
     // }
     postObj = {}
     for (cell of document.querySelectorAll(".cell")) {
-        postObj[cell.id] = getKey(colorDict, cell.style.background)
+        postObj[String(cell.id)] = String(getKey(colorDict, cell.style.background))
             // console.log(cell.id)
             // console.log(getKey(colorDict, cell.style.background))
     }
@@ -84,6 +84,7 @@ function getGeo() {
 
 
 function sendGeo(postObj) {
+    // console.log(postObj)
     $('#ajaxProgress').show();
     $.ajax({
         type: 'POST',
@@ -97,8 +98,9 @@ function sendGeo(postObj) {
             // complete: callback
         },
         success: function(imgpage){
-            document.querySelector('#imageContainer').innerHTML = imgpage
             $('#ajaxProgress').hide();
+            document.querySelector('#imageContainer').innerHTML = imgpage
+            
         }
 
     })
