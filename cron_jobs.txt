@@ -1,0 +1,6 @@
+# Deletes plots every hour
+* * * * * find /home/kevin//home/kevin/reactor_sim/milonga_diffusion/static/plots -mmin +1 -exec rm {} \;
+
+# Ensures deletion of temp files
+0 * * * * find /home/kevin/reactor_sim/milonga_diffusion | grep temp_ | xargs rm -fr
+
