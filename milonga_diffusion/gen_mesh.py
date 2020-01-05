@@ -180,7 +180,7 @@ def generate_mil(ts):
 def generate_plot(ts):
     with open(ts+'_diffusion.gp', 'w+') as f2:
         f2.write('''
-        load "/home/kevin/VSCodeProjects/django_projects/build_a_reactor/milonga_diffusion/gnuplot-palettes/gnbu.pal"
+        load "/home/kevin/reactor_sim/milonga_diffusion/gnuplot-palettes/gnbu.pal"
         set term png
         set output "milonga_diffusion/static/plots/'''+ts+'''_fast.png"
         set view map
