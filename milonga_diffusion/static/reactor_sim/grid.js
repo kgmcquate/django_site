@@ -85,7 +85,10 @@ function getGeo() {
 
 function sendGeo(postObj) {
     // console.log(postObj)
+    // document.getElementById("imageContainer").style.display = "none"
+    // document.querySelectorAll('rounded').style.opacity = "0.4";
     $('#ajaxProgress').show();
+
     $.ajax({
         type: 'POST',
         url: 'send_geo/',
@@ -99,6 +102,7 @@ function sendGeo(postObj) {
         },
         success: function(imgpage){
             $('#ajaxProgress').hide();
+            // document.querySelectorAll('rounded').style.opacity = "1.0";
             document.querySelector('#imageContainer').innerHTML = imgpage
             
         }

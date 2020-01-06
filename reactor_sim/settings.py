@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gjpm@u5rmnzr1pyeibgp@%nk6*)om#b+&mt^82$q9&0u^=g1z+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['50.116.51.56', '0.0.0.0']
+ALLOWED_HOSTS = ['www.gonuclear.energy', '50.116.51.56', '0.0.0.0']
 
 
 # Application definition

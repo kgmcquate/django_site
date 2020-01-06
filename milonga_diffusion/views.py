@@ -33,7 +33,7 @@ def reactor_sim(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = AddForm()
-        return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(10),  'Y': range(10), 'maxX': 10, 'maxY': 10})
+        return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(12),  'Y': range(12), 'maxX': 12, 'maxY': 12})
         
 
 def grab_geo(request):

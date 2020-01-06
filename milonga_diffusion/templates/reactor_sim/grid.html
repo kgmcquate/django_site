@@ -22,18 +22,27 @@
 <body >
     {% comment %} {% load crispy_forms_tags %} {% endcomment %}
 
-    <div class="jumbotron text-left" >
-        <h1 style="font-size:36px">Nuclear Reactor Simulator</h1>
-        <p>diffusion-theory neutronics for casual use<br>
-        powered by <a href="https://www.seamplex.com/milonga/">milonga, a free nuclear reactor core analysis code</a></p>
-        <p>created by Kevin McQuate</p>
-    </div>
 
-    <div style="text-align: center">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="position: fix">
+      <div class="container-fluid">
+    <div class="navbar-header">
+      <h2>Nuclear Reactor Simulator</h2>
+    </div>
+    <ul style="list-style-type:none;">
+      <li>diffusion-theory neutronics</li>
+      <li>powered by <a href="https://www.seamplex.com/milonga/">milonga, a free nuclear reactor core analysis code</a></a></li>
+      <li>created by Kevin McQuate</li>
+    </ul>
+    </div>    
+    </nav>
+    
+
+
+    <div style="text-align: center; margin-top: 140px; position: relative">
         
         <div style="display: flex; margin: auto">
 
-            <div id="container" style="margin-left: calc(15% - {{maxX}}% / 2); height: calc({{ maxY }}*40px); width: calc({{ maxX }}*40px)">
+            <div id="container" style="margin-right: 10px; margin-left: calc(15% - {{maxX}}% / 2); height: calc({{ maxY }}*40px); width: calc({{ maxX }}*40px)">
                 {% for x in X %}
                 {% for y in Y %}
                 <div class="cell" id="{{ x }},{{ y }}" style="top: calc(({{ maxY }} - {{y}} - 1)*40px); left: calc({{x}}*40px); height: 40px; width: 40px;"></div>
@@ -48,27 +57,28 @@
                 <button type="button" id="poison" class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Neutron Poison">Poison</button>
                 <button type="button" id="air" class="matChoice btn btn-secondary" data-toggle="tooltip" title="Draw with Air">Air</button>
                 <button type="button" id="clearGrid" class="btn btn-secondary" data-toggle="tooltip" title="Fill All with Fuel">Clear All</button>
-                
+                <hr width=80px/>
 
                 <form action="" method="post">
                     {% csrf_token %}
-                        <input style='width: 100px; left: 10%; margin-top: 12px;' id='submit_button' class="btn btn-primary" type="submit" data-toggle="tooltip" title="Generate a New Grid" value="New Grid" />
+                        <input style='width: 100px; left: 10%; ' id='submit_button' class="btn btn-primary" type="submit" data-toggle="tooltip" title="Generate a New Grid" value="New Grid" />
 
                         <input style='width: 75px; margin: 5px;' class="form-control" id="id_x_size" name="x_size" required="" type="text" placeholder="Width" autocomplete="off"/>
                         
                         <input style='width: 75px; margin: 5px;' class="form-control" id="id_y_size" name="y_size" required="" type="text" placeholder="Height" autocomplete="off"/>
                 </form>
+                <hr width=80px/>
                 <button style='margin-top: 17px;' type="button" id="solve" class="btn btn-success" data-toggle="tooltip" title="Send to milonga">Solve</button>
             </div>
         </div>
     </div>
 
     <div id="ajaxProgress">
-        <h3 style='text-align: left;'>Solving...</h3>
-        <img style='float: left' src="{% static 'icon/ajax-loader.gif' %}" alt="loading..." />
+        <h3 >Solving...</h3>
+        <img src="{% static 'icon/ajax-loader.gif' %}" alt="loading..." />
     </div>
 
-    <div id="imageContainer">
+    <div id="imageContainer" class='rounded'>
         {{ img }}
     </div>
     <!-- <script src="{% static "diffusion/jquery-3.4.1.min.js" %}"></script> -->
