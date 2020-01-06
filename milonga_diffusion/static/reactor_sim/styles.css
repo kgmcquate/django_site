@@ -1,5 +1,5 @@
 body {
-    background: rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
 }
 
 #buttonContainer {
@@ -27,7 +27,7 @@ body {
     position: relative;
     /* margin-left: 25%; */
     /* margin-right: 60px; */
-    background: rgb(10, 30, 50)
+    background-color: rgb(10, 30, 50)
 }
 
 #formContainer {
@@ -52,7 +52,7 @@ body {
 }
 
 .cell {
-    background: gray;
+    background-color: gray;
     border: solid 1px rgb(82, 82, 82);
     /*border-radius: 10%;*/
     position: absolute;

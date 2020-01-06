@@ -25,12 +25,12 @@ function onClickCell() {
     var ID = this.getAttribute('id')
         // selected_boxes.push(ID)
         //alert(colorDict[matChoice])
-    this.style.background = colorDict[matChoice]
+    this.style.backgroundColor = colorDict[matChoice]
 }
 
 function onEnterCell() {
     if (mouseDown == true) {
-        this.style.background = colorDict[matChoice]
+        this.style.backgroundColor = colorDict[matChoice]
     }
 }
 
@@ -38,7 +38,7 @@ function onEnterCell() {
 const matButtons = document.querySelectorAll('.matChoice')
 for (const matButton of matButtons) {
     matButton.addEventListener('click', setMatChoice, true)
-    matButton.style.background = colorDict[matButton.id]
+    matButton.style.backgroundColor = colorDict[matButton.id]
 }
 
 
@@ -49,7 +49,7 @@ var cells = document.querySelectorAll('.cell')
 for (const cell of cells) {
     cell.addEventListener('mousedown', onClickCell, true)
     cell.addEventListener('mouseenter', onEnterCell, true)
-    cell.style.background = colorDict['fuel']
+    cell.style.backgroundColor = colorDict['fuel']
 }
 
 const clearButton = document.querySelector("#clearGrid")
@@ -57,7 +57,7 @@ clearButton.addEventListener('click', clearGrid, true)
 
 function clearGrid() {
     for (const cell of cells) {
-        cell.style.background = colorDict['fuel']
+        cell.style.backgroundColor = colorDict['fuel']
     }
 }
 
@@ -70,13 +70,13 @@ solveButton.addEventListener('click', getGeo)
 function getGeo() {
     // var cells = document.querySelectorAll('.cell')
     // for (cell of cells) {
-    //     console.log(cell.style.background)
+    //     console.log(cell.style.backgroundColor)
     // }
     postObj = {}
     for (cell of document.querySelectorAll(".cell")) {
-        postObj[String(cell.id)] = String(getKey(colorDict, cell.style.background))
+        postObj[cell.id] = getKey(colorDict, cell.style.backgroundColor)
             // console.log(cell.id)
-            // console.log(getKey(colorDict, cell.style.background))
+            // console.log(getKey(colorDict, cell.style.backgroundColor))
     }
 
     sendGeo(postObj)
@@ -88,7 +88,7 @@ function sendGeo(postObj) {
     // document.getElementById("imageContainer").style.display = "none"
     // document.querySelectorAll('rounded').style.opacity = "0.4";
     $('#ajaxProgress').show();
-
+    console.log(postObj)
     $.ajax({
         type: 'POST',
         url: 'send_geo/',
