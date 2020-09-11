@@ -2,8 +2,9 @@ from django.shortcuts import render
 from .forms import AddForm
 from django.http import HttpResponse
 import json
-from .gen_mesh import generate_mesh, generate_mil, generate_plot
+from .milonga_solver import MilongaSolver
 import datetime, os
+from reactor_sim.settings import STATIC_TEMP_ROOT, BASE_DIR
 
 
 def reactor_sim(request):
@@ -26,7 +27,7 @@ def reactor_sim(request):
             elif Y < 5:
                 Y = 5
             
-            return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(X), 'Y': range(Y), 'maxX': X, 'maxY': Y})
+            return render(request, 'milonga_diffusion/grid.html', {'form': form, 'X': range(X), 'Y': range(Y), 'maxX': X, 'maxY': Y})
         # else:
         #     # warning = 'Dimensions must be between 5 and 25'
         #     return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(10), 'Y': range(10), 'maxX': 10, 'maxY': 10})
@@ -34,23 +35,20 @@ def reactor_sim(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = AddForm()
-        return render(request, 'reactor_sim/grid.html', {'form': form, 'X': range(12),  'Y': range(12), 'maxX': 12, 'maxY': 12})
+        return render(request, 'milonga_diffusion/grid.html', {'form': form, 'X': range(12),  'Y': range(12), 'maxX': 12, 'maxY': 12})
         
 
-def grab_geo(request):
-    ts = 'temp_' + str(datetime.datetime.now().strftime("%H%M%S%s"))
-    # response_data = {}
-    test = request.POST.get("data", "")
-    # print(type(test))
-    generate_mesh(test, ts)
-    keff = generate_mil(ts)
+def solve(request):
 
-    if keff > 0:
-        generate_plot(ts)
-    # os.remove('static/'+ts+'_fast.png')
+    milongaSolver = MilongaSolver(temp_root=STATIC_TEMP_ROOT, cells_string=request.POST.get("data"))
+
+    milongaSolver.generate_mesh()
+    milongaSolver.generate_mil()
+
+    milongaSolver.generate_plot(gnuplot_palette_path=os.path.join(BASE_DIR, "milonga_diffusion", "gplot-palettes", "gnbu.pal"))
 
     # print(keff)
-    keff = float(keff)
+    keff = float(milongaSolver.keff)
     if keff == 0:
         msg = 'Can\'t Solve'
     elif keff < 0.99:
@@ -62,18 +60,14 @@ def grab_geo(request):
     elif (keff > 1.0002) or (keff < 0.9998):
         msg = "Reactor is Nearly Critical: k = "+str(keff)
     else:
-        msg = "Congratulations, Reactor is Critical: k = "+str(keff)
-    
-    root_dir = "/home/kevin/reactor_sim/milonga_diffusion/"
-    plots_dir = "/plots/"
-    html_path = root_dir + 'templates/reactor_sim/plots.html'
-    fast_path = plots_dir+ts+"_fast.png"
-    thermal_path = plots_dir+ts+"_thermal.png"
+        msg = "Reactor is Critical: k = "+str(keff)
 
-    # for path in [root_dir, plots_dir, html_path, fast_path, thermal_path]:
-    #     if os.path.exists(path):
-    #         print(path+'  exists') 
-    # print(msg)
-
-    return render(request, html_path, {'fast_plot_path': fast_path, 'thermal_plot_path': thermal_path, 'k_msg': msg})
+    return render(request, 
+                "milonga_diffusion/plots.html",
+                {
+                    'fast_plot_path': milongaSolver.fast_png_path, 
+                    'thermal_plot_path': milongaSolver.thermal_png_path, 
+                    'k_msg': msg
+                }
+            )
 

@@ -28,7 +28,7 @@ except KeyError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.gonuclear.energy',  '3.215.59.109','0.0.0.0']
+ALLOWED_HOSTS = ['www.gonuclear.energy', '3.215.59.109','0.0.0.0']
 
 
 # Application definition
@@ -61,8 +61,8 @@ ROOT_URLCONF = 'reactor_sim.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        #'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -124,8 +124,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "milonga_diffusion/static")
+#STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#print(STATIC_ROOT)
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 STATIC_URL = '/static/'
-STATIC_TEMP_ROOT = os.path.join(STATIC_ROOT, "temp")
+STATIC_TEMP_ROOT = os.path.join(BASE_DIR, "static", "temp")
 
 #CRISPY_TEMPLATE_PACK = 'bootstrap4'
