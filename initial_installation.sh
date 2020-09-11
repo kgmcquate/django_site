@@ -19,9 +19,9 @@ sudo apt-get install gnuplot paraview pandoc
 
 
 
-sudo apt-get remove python*
+#sudo apt-get remove python*
 
-sudo apt-get install python3.6 python3-pip
+sudo apt-get install python3.7 python3-pip
 
 wget http://gmsh.info/bin/Linux/gmsh-4.5.1-Linux64.tgz
 
@@ -33,10 +33,8 @@ echo 'export PATH="/home/$USER/milonga:$PATH"' >> ~/.bashrc
 export PATH="/home/kevin/gmsh-4.5.1-Linux64/bin:$PATH"
 export PATH="/home/$USER/milonga:$PATH"
 
-pip3 install virtualenv
 
 # Now create virtualenv
-# virtualenv venv
 
 # source ~/reactor_sim/venv/bin/activate
 

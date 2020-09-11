@@ -1,4 +1,4 @@
-#!/var/www/reactor_sim/django_env/bin/python3
+#!/var/www/django_site/django_env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

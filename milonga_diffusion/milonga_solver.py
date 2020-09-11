@@ -14,7 +14,11 @@ import shutil
 
 
 class MilongaSolver:
-    def __init__(self, temp_root, cells_string):
+    def __init__(self, temp_root, cells_string, u=5, lc=1.25):
+
+        self.u = u
+        self.lc = lc
+
         self.id = id = str(datetime.datetime.now().strftime("%H%M%S%s"))
         self.file_root = os.path.join(temp_root, id)
         os.mkdir(self.file_root)
@@ -33,12 +37,12 @@ class MilongaSolver:
 
     def generate_mesh(self):
 
+        u = self.u
+        lc = self.lc
+
         cells = json.loads(self.cells_string)
         gmsh.initialize(sys.argv)
         gmsh.model.add(self.id)
-
-        u = 5
-        lc = 1.25
 
         # cells = {'0,0': 'fuel', '1,0': 'fuel', '2,0': 'water', '0,1': 'water', '1,1': 'fuel', '2,1': 'fuel', '0,2': 'water', '1,2': 'fuel', '2,2': 'fuel'}
         max_x = 0

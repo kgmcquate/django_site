@@ -4,10 +4,10 @@ from django.http import HttpResponse
 import json
 from .milonga_solver import MilongaSolver
 import datetime, os
-from reactor_sim.settings import STATIC_TEMP_ROOT, BASE_DIR
+from django_site.settings import STATIC_TEMP_ROOT, BASE_DIR
 
 
-def reactor_sim(request):
+def get_init(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -65,8 +65,8 @@ def solve(request):
     return render(request, 
                 "milonga_diffusion/plots.html",
                 {
-                    'fast_plot_path': milongaSolver.fast_png_path, 
-                    'thermal_plot_path': milongaSolver.thermal_png_path, 
+                    'fast_plot_path': "/".join(milongaSolver.fast_png_path.split("/")[-3:]), 
+                    'thermal_plot_path': "/".join(milongaSolver.thermal_png_path.split("/")[-3:]), 
                     'k_msg': msg
                 }
             )
