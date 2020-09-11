@@ -11,7 +11,7 @@ import subprocess
 import string
 import datetime
 import shutil
-
+import time
 
 class MilongaSolver:
     def __init__(self, temp_root, cells_string, u=5, lc=1.25):
@@ -30,10 +30,6 @@ class MilongaSolver:
         self.fast_png_path = join(self.file_root, f"{id}_fast.png")
         self.thermal_png_path = join(self.file_root, f"{id}_thermal.png")
         self.dat_path = join(self.file_root, f"{id}.dat")
-
-
-    #def __del__(self):
-        #shutil.rmtree(self.file_root)
 
     def generate_mesh(self):
 

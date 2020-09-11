@@ -73,14 +73,9 @@
         </div>
     </div>
 
-    <div id="ajaxProgress">
-        <h3 >Solving...</h3>
-        <img src="{% static 'icon/ajax-loader.gif' %}" alt="loading..." />
-    </div>
 
-    <div id="imageContainer" class='rounded'>
-        {{ img }}
-    </div>
+
+
     <!-- <script src="{% static "diffusion/jquery-3.4.1.min.js" %}"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -88,5 +83,14 @@
     
     <script src="{% static "reactor_sim/grid.js" %}"></script>
 </body>
+ 
+<div id="ajaxProgressModal" class="modal fade">
+    <h3 >Solving...</h3>
+    <img src="{% static 'icon/ajax-loader.gif' %}" alt="loading..." />
+</div>
 
+<div id="solutionModal" class="modal fade" tabindex="-1" role="dialog">
+
+
+</div>
 </html>

@@ -61,34 +61,27 @@ function clearGrid() {
     }
 }
 
-// clearGrid()
-
-
 const solveButton = document.querySelector('#solve')
 solveButton.addEventListener('click', getGeo)
 
 function getGeo() {
-    // var cells = document.querySelectorAll('.cell')
-    // for (cell of cells) {
-    //     console.log(cell.style.backgroundColor)
-    // }
-    postObj = {}
+
+    geoObj = {}
     for (cell of document.querySelectorAll(".cell")) {
-        postObj[cell.id] = getKey(colorDict, cell.style.backgroundColor)
+        geoObj[cell.id] = getKey(colorDict, cell.style.backgroundColor)
             // console.log(cell.id)
             // console.log(getKey(colorDict, cell.style.backgroundColor))
     }
 
-    solve(postObj)
+    solve(geoObj)
 }
 
 
-function solve(postObj) {
-    // console.log(postObj)
-    // document.getElementById("imageContainer").style.display = "none"
-    // document.querySelectorAll('rounded').style.opacity = "0.4";
-    $('#ajaxProgress').show();
-    console.log(postObj)
+function solve(geoObj) {
+
+    $('#ajaxProgress').modal()
+    
+    console.log(geoObj)
     $.ajax({
         type: 'POST',
         url: 'solve/',
@@ -97,13 +90,14 @@ function solve(postObj) {
         data: {
             csrfmiddlewaretoken: document.querySelector('[name="csrfmiddlewaretoken"]').value,
             contentType: "application/json",
-            data: JSON.stringify(postObj),
+            data: JSON.stringify(geoObj),
             // complete: callback
         },
-        success: function(imgpage){
-            $('#ajaxProgress').hide();
-            // document.querySelectorAll('rounded').style.opacity = "1.0";
-            document.querySelector('#imageContainer').innerHTML = imgpage
+        success: function(imgContainerHtml){
+            //$('#ajaxProgress').hide();
+            document.querySelector('#solutionModal').innerHTML = imgContainerHtml
+            $('#solutionModal').modal()
+            
             
         }
 

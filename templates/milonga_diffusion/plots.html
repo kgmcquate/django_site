@@ -1,4 +1,16 @@
 {% load static %} 
-<h2 style='text-align: left; margin-bottom: 20px;'>{{ k_msg }}</h2>
-<img src="{% static fast_plot_path %}" alt="Could not load plot." style="border: 0px; outline: none" class="rounded"/>
-<img src="{% static thermal_plot_path %}" alt="Could not load plot." style="border: 0px; outline: none" class="rounded"/>
+<div class="modal-dialog" role="document" >
+    <div class="modal-content"  style="width: 150%">
+        <div class="modal-header" >
+            <h2 class="modal-title" >{{ k_msg }}</h2>
+        </div>
+        <div id="imageContainer" class='rounded text-center'>
+            <img src="{% static fast_plot_path %}" alt="Could not load plot." style="border: 0px; outline: none" />
+            <img src="{% static thermal_plot_path %}" alt="Could not load plot." style="border: 0px; outline: none" />
+        </div>  
+    </div>
+
+
+
+</div>
+

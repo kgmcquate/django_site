@@ -1,3 +1,3 @@
 # Ensures deletion of temp files
-0 * * * * find /home/kevin/reactor_sim/milonga_diffusion | grep temp_ | xargs rm -fr
+0 * * * * rm -rf /var/www/django_site/static/temp/*
 

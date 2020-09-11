@@ -46,8 +46,8 @@ body {
 
 #imageContainer {
     position: relative;
-    left: 60px;
-    top: 60px
+    /* left: 60px; */
+    /* top: 60px */
     /* right: 50%; */
 }
 
@@ -72,3 +72,4 @@ body {
     margin: auto;
     /* margin-left: 20px */
 }
+
