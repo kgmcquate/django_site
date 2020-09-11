@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'reactor_sim.settings')
+print(os.getcwd())
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_site.settings')
 
 application = get_wsgi_application()

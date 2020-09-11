@@ -85,12 +85,17 @@
 </body>
  
 <div id="ajaxProgressModal" class="modal fade">
-    <h3 >Solving...</h3>
-    <img src="{% static 'icon/ajax-loader.gif' %}" alt="loading..." />
+    <div class="modal-dialog modal-sm" role="document" >
+        <div class="modal-content text-center" >
+            <div class="modal-header" >
+                <h3 >Solving...</h3>
+            </div>
+            <img src="{% static 'icon/ajax-loader.gif' %}" alt="loading..." style="width: 25%; height: 25%; margin: auto; padding: 4%"/>
+        </div>
+    </div>
 </div>
 
-<div id="solutionModal" class="modal fade" tabindex="-1" role="dialog">
-
+<div id="solutionModal" class="modal fade" tabindex="-1" role="dialog" style="overflow-y: scroll">
 
 </div>
 </html>

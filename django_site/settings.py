@@ -26,9 +26,9 @@ except KeyError:
     raise Exception("DJANGO_SECRET_KEY env var not set")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['www.gonuclear.energy', 'www.kmcquate.xyz', '3.215.59.109','0.0.0.0']
+ALLOWED_HOSTS = ['www.gonuclear.energy', 'www.kmcquate.xyz', 'kmcquate.xyz', '3.215.59.109','0.0.0.0']
 
 
 # Application definition

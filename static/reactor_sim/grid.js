@@ -79,7 +79,7 @@ function getGeo() {
 
 function solve(geoObj) {
 
-    $('#ajaxProgress').modal()
+    $('#ajaxProgressModal').modal('show')
     
     console.log(geoObj)
     $.ajax({
@@ -94,9 +94,10 @@ function solve(geoObj) {
             // complete: callback
         },
         success: function(imgContainerHtml){
-            //$('#ajaxProgress').hide();
+            
             document.querySelector('#solutionModal').innerHTML = imgContainerHtml
-            $('#solutionModal').modal()
+            $('#solutionModal').modal('show')
+            $('#ajaxProgressModal').modal('hide')
             
             
         }

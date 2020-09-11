@@ -1,7 +1,7 @@
 import sys, os
 from os.path import join
-import gmsh_api
-import gmsh_api.gmsh as gmsh
+import kgm_gmsh_api as gmsh_api
+import kgm_gmsh_api.gmsh as gmsh
 import numpy as np
 import pandas
 import math
@@ -37,7 +37,7 @@ class MilongaSolver:
         lc = self.lc
 
         cells = json.loads(self.cells_string)
-        gmsh.initialize(sys.argv)
+        gmsh.initialize()#sys.argv
         gmsh.model.add(self.id)
 
         # cells = {'0,0': 'fuel', '1,0': 'fuel', '2,0': 'water', '0,1': 'water', '1,1': 'fuel', '2,1': 'fuel', '0,2': 'water', '1,2': 'fuel', '2,2': 'fuel'}

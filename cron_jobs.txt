@@ -1,3 +1,2 @@
 # Ensures deletion of temp files
 0 * * * * rm -rf /var/www/django_site/static/temp/*
-
