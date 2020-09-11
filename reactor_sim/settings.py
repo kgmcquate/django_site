@@ -20,25 +20,28 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+try:
+    SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+except KeyError:
+    raise Exception("DJANGO_SECRET_KEY env var not set")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['www.gonuclear.energy', '50.116.51.56', '0.0.0.0']
+ALLOWED_HOSTS = ['www.gonuclear.energy',  '3.215.59.109','0.0.0.0']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'milonga_diffusion.apps.Milonga_diffusionConfig',
-    'crispy_forms',
+    #'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-#    'livereload',
+    #'livereload',
     'django.contrib.staticfiles',
 ]
 
@@ -50,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
- #   'livereload.middleware.LiveReloadScript'
+    #'livereload.middleware.LiveReloadScript'
 ]
 
 ROOT_URLCONF = 'reactor_sim.urls'
@@ -123,5 +126,6 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "milonga_diffusion/static")
 STATIC_URL = '/static/'
+STATIC_TEMP_ROOT = os.path.join(STATIC_ROOT, "temp")
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#CRISPY_TEMPLATE_PACK = 'bootstrap4'
