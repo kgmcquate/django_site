@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('milonga_diffusion.urls'))
+    path('', include('milonga_diffusion.urls')),
+    path('socks/', include('socks.urls'))
 ]
