@@ -12,6 +12,9 @@ fi
 
 export DJANGO_SECRET_KEY=$(python -c "import secrets; print(secrets.token_urlsafe())")
 
+export PATH="/var/www/gmsh-4.5.1-Linux64/bin:$PATH"
+export PATH="/var/www/milonga:$PATH"
+
 # Since there is no sane way to get the parsed apache2 config in scripts, some
 # settings are defined via environment variables and then used in apache2ctl,
 # /etc/init.d/apache2, /etc/logrotate.d/apache2, etc.
