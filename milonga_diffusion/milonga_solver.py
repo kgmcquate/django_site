@@ -22,6 +22,7 @@ class MilongaSolver:
         self.id = id = str(datetime.datetime.now().strftime("%H%M%S%s"))
         self.file_root = os.path.join(temp_root, id)
         os.mkdir(self.file_root)
+        raise Exception("here0")
 
         self.cells_string = cells_string
         self.mil_path = join(self.file_root, f"{id}.mil")
