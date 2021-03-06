@@ -42,17 +42,21 @@ def solve(request):
 
 
     milongaSolver = MilongaSolver(temp_root=STATIC_TEMP_ROOT, cells_string=request.POST.get("data"))
+    raise Exception("here1")
     logging.error("here")
 
     milongaSolver.generate_mesh()
+    raise Exception("here2")
     logging.error("here2")
 
     milongaSolver.generate_mil()
+    raise Exception("here3")
     logging.error("here3")
 
     milongaSolver.generate_plot(gnuplot_palette_path=os.path.join(BASE_DIR, "milonga_diffusion", "gplot-palettes", "gnbu.pal"))
+    raise Exception("here4")
     logging.error("here3")
-    
+
     # print(keff)
     keff = float(milongaSolver.keff)
     if keff == 0:
