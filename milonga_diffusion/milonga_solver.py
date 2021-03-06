@@ -6,7 +6,7 @@ import numpy as np
 import pandas
 import math
 import json
-import re
+import re, logging
 import subprocess
 import string
 import datetime
@@ -21,9 +21,9 @@ class MilongaSolver:
 
         self.id = id = str(datetime.datetime.now().strftime("%H%M%S%s"))
         self.file_root = os.path.join(temp_root, id)
-        raise Exception("here-2")
+        logging.info("here-2")
         os.mkdir(self.file_root)
-        raise Exception("here0")
+        logging.info("here0")
 
         self.cells_string = cells_string
         self.mil_path = join(self.file_root, f"{id}.mil")
