@@ -40,10 +40,6 @@ def get_init(request):
 
 def solve(request):
 
-    
-    print("here")
-    logging.error("here")
-    raise Exception("here")
 
     milongaSolver = MilongaSolver(temp_root=STATIC_TEMP_ROOT, cells_string=request.POST.get("data"))
 
@@ -66,6 +62,8 @@ def solve(request):
         msg = "Reactor is Nearly Critical: k = "+str(keff)
     else:
         msg = "Reactor is Critical: k = "+str(keff)
+
+    raise Exception("reached return")
 
     return render(request, 
                 "milonga_diffusion/plots.html",
