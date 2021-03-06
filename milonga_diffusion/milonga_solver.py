@@ -21,6 +21,7 @@ class MilongaSolver:
 
         self.id = id = str(datetime.datetime.now().strftime("%H%M%S%s"))
         self.file_root = os.path.join(temp_root, id)
+        raise Exception("here-2")
         os.mkdir(self.file_root)
         raise Exception("here0")
 

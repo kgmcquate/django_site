@@ -40,7 +40,7 @@ def get_init(request):
 
 def solve(request):
 
-
+    raise Exception("here-1")
     milongaSolver = MilongaSolver(temp_root=STATIC_TEMP_ROOT, cells_string=request.POST.get("data"))
     raise Exception("here1")
     logging.error("here")
