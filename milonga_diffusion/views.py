@@ -5,7 +5,7 @@ import json
 from .milonga_solver import MilongaSolver
 import datetime, os
 from django_site.settings import STATIC_TEMP_ROOT, BASE_DIR
-
+import logging
 
 def get_init(request):
     # if this is a POST request we need to process the form data
@@ -39,6 +39,9 @@ def get_init(request):
         
 
 def solve(request):
+
+    print("here")
+    logging.info("here")
 
     milongaSolver = MilongaSolver(temp_root=STATIC_TEMP_ROOT, cells_string=request.POST.get("data"))
 
