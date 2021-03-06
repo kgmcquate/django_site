@@ -8,7 +8,6 @@ from django_site.settings import STATIC_TEMP_ROOT, BASE_DIR
 import logging
 
 def get_init(request):
-    raise Exception("here-1")
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -40,23 +39,13 @@ def get_init(request):
         
 
 def solve(request):
-
-    raise Exception("here-1")
     milongaSolver = MilongaSolver(temp_root=STATIC_TEMP_ROOT, cells_string=request.POST.get("data"))
-    raise Exception("here1")
-    logging.error("here")
 
     milongaSolver.generate_mesh()
-    raise Exception("here2")
-    logging.error("here2")
 
     milongaSolver.generate_mil()
-    raise Exception("here3")
-    logging.error("here3")
 
     milongaSolver.generate_plot(gnuplot_palette_path=os.path.join(BASE_DIR, "milonga_diffusion", "gplot-palettes", "gnbu.pal"))
-    raise Exception("here4")
-    logging.error("here3")
 
     # print(keff)
     keff = float(milongaSolver.keff)
@@ -72,8 +61,6 @@ def solve(request):
         msg = "Reactor is Nearly Critical: k = "+str(keff)
     else:
         msg = "Reactor is Critical: k = "+str(keff)
-
-    raise Exception("reached return")
 
     return render(request, 
                 "milonga_diffusion/plots.html",
