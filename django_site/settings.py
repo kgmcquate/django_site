@@ -28,7 +28,7 @@ except KeyError:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.gonuclear.energy', 'www.kmcquate.xyz', 'kmcquate.xyz', '3.215.59.109','0.0.0.0']
+ALLOWED_HOSTS = ['www.gonuclear.energy', 'www.kmcquate.xyz', 'kmcquate.xyz', '3.215.59.109','0.0.0.0', '66.228.37.203']
 
 
 # Application definition
