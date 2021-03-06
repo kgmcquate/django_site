@@ -8,6 +8,7 @@ from django_site.settings import STATIC_TEMP_ROOT, BASE_DIR
 import logging
 
 def get_init(request):
+    raise Exception("here-1")
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
